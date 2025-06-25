@@ -9,14 +9,8 @@ import com.example.PerfulandiaSPA.Service.PerfumeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
-//Importar las librerias de Swagger para la documentacion de las API
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-
 @RestController
 @RequestMapping("/api/v1/carrito")
-//La anotacion Tag se usa para agrupar y etiquetar los controladores dentro de la documentacion
-@Tag(name = "Carrito de Compras", description = "Operaciones sobre el carrito de compras")
 public class CarritoController {
 
     private final List<Perfume> carrito = new ArrayList<>();
@@ -25,7 +19,6 @@ public class CarritoController {
     private PerfumeService perfumeService;
 
     // Método para agregar un perfume al carrito
-    @Operation(summary = "Agregar un producto al carrito de compras", description = "Agrega un perfume al carrito de compras")
     @PostMapping("/agregar/{id}")
     public ResponseEntity<String> agregarPerfume(@PathVariable int id) {
         System.out.println("Intentando agregar perfume con ID: " + id);
@@ -46,14 +39,12 @@ public class CarritoController {
     }
 
     // Método para ver los items del carrito
-    @Operation(summary = "Muestra los productos agregados al carrito de compras", description = "Muestra todos los perfumes en el carrito de compras")
     @GetMapping
     public List<Perfume> verCarrito() {
         return carrito;
     }
 
     // Método para eliminar items del carrito
-    @Operation(summary = "Eliminar un producto al carrito de compras", description = "Elimina un perfume del carrito de compras por ID")
     @DeleteMapping("/eliminar/{id}")
     public String eliminarPerfume(@PathVariable int id) {
         Iterator<Perfume> it = carrito.iterator();
@@ -69,7 +60,6 @@ public class CarritoController {
     }
 
     // Método para vaciar el carrito
-    @Operation(summary = "Vaciar el carrito de compras", description = "Elimina todos los perfumes del carrito de compras")
     @DeleteMapping("/vaciar")
     public String vaciarCarrito() {
         for (Perfume p : carrito) {
@@ -85,7 +75,6 @@ public class CarritoController {
     }
 
     // Método para contar los perfumes en el carrito
-    @Operation(summary = "Contar los productos del carrito de compras", description = "Devuelve el numero total de perfumes en el carrito de compras")
     @GetMapping("/total")
     public int totalPerfumes() {
         return carrito.size();
