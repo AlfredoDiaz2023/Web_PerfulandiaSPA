@@ -1,21 +1,18 @@
 package com.example.PerfulandiaSPA.Model;
 
+import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data 
+@AllArgsConstructor 
+@NoArgsConstructor
 public class Notificaciones {
-    private int id;
+    private int idNotif;
     private String titulo;
     private String mensaje;
-    private String fecha; 
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
-
-    public String getMensaje() { return mensaje; }
-    public void setMensaje(String mensaje) { this.mensaje = mensaje; }
-
-    public String getFecha() { return fecha; }
-    public void setFecha(String fecha) { this.fecha = fecha; }
+    private LocalDateTime fecha;
+    private boolean leido;
 }
 

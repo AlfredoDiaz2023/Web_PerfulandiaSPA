@@ -1,40 +1,46 @@
 package com.example.PerfulandiaSPA.Service;
 
 import com.example.PerfulandiaSPA.Model.Notificaciones;
+import com.example.PerfulandiaSPA.Repository.NotificacionesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 
 @Service
-
 public class NotificacionesService {
-    private List<Notificaciones> notificaciones = new ArrayList<>();
-    private int contadorId = 1;
+    @Autowired
+    private NotificacionesRepository notificacionesRepository;
 
-    public List<Notificaciones> listarNotificaciones() {
-        return notificaciones;
+    public List<Notificaciones> obtenerTodas() {
+        return notificacionesRepository.obtenerTodas();
     }
 
-    public void agregarNotificacion(Notificaciones noti) {
-        noti.setId(contadorId++);
-        notificaciones.add(noti);
+    public List<Notificaciones> obtenerNoLeidas() {
+        return notificacionesRepository.obtenerNoLeidas();
     }
 
-    public boolean eliminarNotificacion(int id) {
-        Iterator<Notificaciones> it = notificaciones.iterator();
-        while (it.hasNext()) {
-            if (it.next().getId() == id) {
-                it.remove();
-                return true;
-            }
-        }
-        return false;
+    public Notificaciones crearNotificacion(String titulo, String mensaje) {
+        Notificaciones nueva = new Notificaciones();
+        nueva.setTitulo(titulo);
+        nueva.setMensaje(mensaje);
+        return notificacionesRepository.guardar(nueva);
     }
 
-    public void vaciarNotificaciones() {
-        notificaciones.clear();
+    public void marcarComoLeida(int id) {
+        notificacionesRepository.marcarComoLeida(id);
+    }
+
+    public void marcarTodasComoLeidas() {
+        notificacionesRepository.marcarTodasComoLeidas();
+    }
+
+    public int contarNoLeidas() {
+        return notificacionesRepository.obtenerNoLeidas().size();
+    }
+
+    public int contarTodas() {
+        return notificacionesRepository.totalNotificaciones();
     }
 }
 

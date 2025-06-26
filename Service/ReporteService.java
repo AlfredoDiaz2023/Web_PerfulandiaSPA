@@ -1,32 +1,28 @@
 package com.example.PerfulandiaSPA.Service;
 
 import com.example.PerfulandiaSPA.Model.Reporte;
+import com.example.PerfulandiaSPA.Repository.ReporteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
-
 public class ReporteService {
-    private final List<Reporte> reportes = new ArrayList<>();
-    private int idCounter = 1;
+    @Autowired
+    private ReporteRepository repor;
 
-    public List<Reporte> listarReportes() {
-        return reportes;
+    public Reporte guardarReporte(Reporte r) {
+        return repor.save(r);
     }
 
-    public void agregarReporte(Reporte reporte) {
-        reporte.setId(idCounter++);
-        reportes.add(reporte);
+
+    public List<Reporte> listarReporte() {
+        return repor.findAll();
     }
 
-    public boolean eliminarReporte(int id) {
-        return reportes.removeIf(rep -> rep.getId() == id);
+    public Optional<Reporte> buscarReporte(int id) {
+        return repor.findById(id); 
     }
-
-    public void vaciarReportes() {
-        reportes.clear();
-    }
-    
 }

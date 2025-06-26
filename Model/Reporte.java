@@ -1,30 +1,19 @@
 package com.example.PerfulandiaSPA.Model;
 
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Reporte {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String titulo;
+
+    private String nombreUsuario;
+    private String email;
+    private String asunto;
     private String descripcion;
-    private String fecha;
-
-    public Reporte() {}
-    
-    public Reporte(int id, String titulo, String descripcion, String fecha) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.fecha = fecha;
-    }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
-
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-
-    public String getFecha() { return fecha; }
-    public void setFecha(String fecha) { this.fecha = fecha; }
-    
 }
